@@ -1,0 +1,199 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "c5d8eb0f-683a-42b4-81f8-8cefdb5e2377",
+   "metadata": {},
+   "source": [
+    "# Prompt Iterativo"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7222c4c1-e374-437a-9123-bba5d7c20d3d",
+   "metadata": {},
+   "source": [
+    "Un \"few-shot prompting\" se refiere a la práctica de proporcionar solo algunas interacciones o ejemplos de entrada para obtener una respuesta del modelo de lenguaje. En lugar de interactuar en una conversación continua, donde se envían múltiples mensajes de ida y vuelta entre el usuario y el modelo, con el \"few-shot prompting\", se intenta condensar la información necesaria en unas pocas solicitudes para obtener la respuesta deseada."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b72d6510-92bc-4de4-9e11-21324c5d896d",
+   "metadata": {},
+   "source": [
+    "#### Lab"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f48d1e4f-5bf0-4291-9f10-e4fa452dfee6",
+   "metadata": {},
+   "source": [
+    "1. Import openAI dependences (load with conda install openai)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "6f5e6bba-f9b0-4d27-a0c2-ceede346e2fd",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "\n",
+    "#Import openAI dependences (module)\n",
+    "import openai"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6180968b-5de0-4e1d-91e1-bb0607b62ebe",
+   "metadata": {},
+   "source": [
+    "2. Use the API Key from openAI page"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "aaa13f6c-6aee-4ddd-92b7-33dbbf66ea3c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Add our API Key copied from openAI page\n",
+    "openai.api_key = \"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\" #Example -> dw-bQyr9128F49VJRNKAnST32lbkFJ2Zv4qEhWo4R0Xh6yrh15"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "133396b5-0a78-4b9a-a1c0-8c81d7744f9b",
+   "metadata": {},
+   "source": [
+    "3 Make a request"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "f7c1fc76-a9ea-4df9-9324-d83bba8bfc0c",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "#Make the context of our prompt envoirement\n",
+    "context = 'Eres un meteorologo experto, con reconocimientos mundiales en el cuidado medioambiental'\n",
+    "\n",
+    "#prompt (text/user's question)\n",
+    "prompt = \"¿Puedes darme información sobre el cambio climático?\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d6fe7cbb-315a-43dc-9618-d16b270a0b77",
+   "metadata": {},
+   "source": [
+    "4. Settings"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "09e1b4bd-1101-40ed-a095-efe28b53dafa",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "assistant: ¡Por supuesto! El cambio climático es un tema de vital importancia que afecta a nuestro planeta y a nuestra vida diaria. Se refiere a los cambios a largo plazo en los patrones climáticos de la Tierra, causados principalmente por la actividad humana.\n",
+      "\n",
+      "El principal impulsor del cambio climático es el aumento de las emisiones de gases de efecto invernadero, como el dióxido de carbono (CO2), el\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Make the request\n",
+    "conversation = [\n",
+    "    {\"role\": \"system\", \"content\": context},\n",
+    "    {\"role\": \"user\", \"content\": prompt}\n",
+    "]\n",
+    "\n",
+    "response = openai.ChatCompletion.create(\n",
+    "    model='gpt-3.5-turbo',\n",
+    "    messages=conversation,\n",
+    "    max_tokens=100\n",
+    ")\n",
+    "\n",
+    "message = response.choices[0]['message']\n",
+    "print(\"{}: {}\".format(message['role'], message['content']))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "d2ac5414-7151-4f99-9c2a-10717049c17d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "assistant: Hay muchas formas en las que podemos mitigar los efectos del cambio climático. Aquí hay algunas medidas clave que se pueden llevar a cabo:\n",
+      "\n",
+      "1. Reducir las emisiones de gases de efecto invernadero: Esto implica disminuir el consumo de combustibles fósiles, promover energías renovables como la solar y eólica, mejorar la eficiencia energética en edificios e industrias, y fomentar el uso de transporte\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Make the request\n",
+    "prompt_iterative1 = \"¿Cómo podemos mitigar los efectos del cambio climático?\"\n",
+    "\n",
+    "conversation = [\n",
+    "    {\"role\": \"system\", \"content\": context},\n",
+    "    {\"role\": \"user\", \"content\": \"{}: {}\".format(message['role'], message['content'])},\n",
+    "    {\"role\": \"user\", \"content\": prompt_iterative1},\n",
+    "]\n",
+    "\n",
+    "response = openai.ChatCompletion.create(\n",
+    "    model='gpt-3.5-turbo',\n",
+    "    messages=conversation,\n",
+    "    max_tokens=500\n",
+    ")\n",
+    "\n",
+    "message = response.choices[0]['message']\n",
+    "print(\"{}: {}\".format(message['role'], message['content']))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "378dbe11-3283-43d8-a043-78c96ae8d244",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
