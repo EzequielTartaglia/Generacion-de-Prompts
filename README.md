@@ -15,4 +15,3 @@ Para poder instalar el entorno necesario para poder crear nuestros modelos de IA
   - `pip install jupyter notebook` (instalar tanto jupyter como notebook, para poder crear nuestro servidor local)
   - `pip install` "..." seguido de la dependencia necesaria para nuestro proyecto o modelo.
 5. Una vez instaladas las dependencias, debemos ejecutar nuestro entorno jupyter notebook con el comando `jupyter notebook`
-.
