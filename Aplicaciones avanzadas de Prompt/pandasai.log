@@ -1175,3 +1175,112 @@ result = {'type': 'dataframe', 'value': result_df}
 1  Office Supplies  719047.0320                 Binders}
 2024-01-31 20:18:13 [INFO] Executed in: 12.33285927772522s
 2024-01-31 20:18:13 [INFO] Executing Step 6: ResultParsing
+2024-04-30 19:54:22 [INFO] Question: Return the top 5 titles and their total sales order by total sales
+2024-04-30 19:54:22 [INFO] Running PandasAI with openai LLM...
+2024-04-30 19:54:22 [INFO] Prompt ID: ef05156f-8a2d-4a67-9f5f-77874562b495
+2024-04-30 19:54:22 [INFO] Executing Step 0: CacheLookup
+2024-04-30 19:54:22 [INFO] Using cached response
+2024-04-30 19:54:22 [INFO] Executing Step 1: PromptGeneration
+2024-04-30 19:54:22 [INFO] Executing Step 2: CodeGenerator
+2024-04-30 19:54:22 [INFO] Executing Step 3: CachePopulation
+2024-04-30 19:54:22 [INFO] Executing Step 4: CodeExecution
+2024-04-30 19:54:22 [INFO] 
+Code running:
+```
+df = dfs[0]
+top_titles = df[['title', 'total_sales']].sort_values(by='total_sales', ascending=False).head(5)
+result = {'type': 'dataframe', 'value': top_titles}
+        ```
+2024-04-30 19:54:23 [INFO] Executing Step 5: ResultValidation
+2024-04-30 19:54:23 [INFO] Answer: {'type': 'dataframe', 'value':                          title  total_sales
+0           Grand Theft Auto V        20.32
+1           Grand Theft Auto V        19.39
+2  Grand Theft Auto: Vice City        16.15
+3           Grand Theft Auto V        15.86
+4    Call of Duty: Black Ops 3        15.09}
+2024-04-30 19:54:23 [INFO] Executed in: 0.604081392288208s
+2024-04-30 19:54:23 [INFO] Executing Step 6: ResultParsing
+2024-04-30 19:58:37 [INFO] Question: Give me the 7 developers that have more games made of
+2024-04-30 19:58:37 [INFO] Running PandasAI with openai LLM...
+2024-04-30 19:58:37 [INFO] Prompt ID: 25e46afc-22ce-410b-9b37-faf346c279b2
+2024-04-30 19:58:37 [INFO] Executing Step 0: CacheLookup
+2024-04-30 19:58:37 [INFO] Executing Step 1: PromptGeneration
+2024-04-30 19:58:37 [INFO] Using prompt: <dataframe>
+dfs[0]:64016x14
+img,title,console,genre,publisher,developer,critic_score,total_sales,na_sales,jp_sales,pal_sales,other_sales,release_date,last_update
+/games/boxart/827563cc...,Grand Theft Auto: Vice...,PS2,Action,Rockstar Games,Rockstar North,9.6,16.15,8.41,0.47,5.49,1.78,2002-10-28,
+/games/boxart/full_651...,Grand Theft Auto V...,PS3,Action,Rockstar Games,Rockstar North,9.4,20.32,6.37,0.99,9.85,3.12,2013-09-17,
+/games/boxart/full_556...,Grand Theft Auto V...,PS4,Action,Rockstar Games,Rockstar North,9.7,19.39,6.06,0.6,9.71,3.02,2014-11-18,2018-01-03
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+```
+
+Q: Give me the 7 developers that have more games made of
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+
+
+Generate python code and return full updated code:
+2024-04-30 19:58:37 [INFO] Executing Step 2: CodeGenerator
+2024-04-30 19:58:40 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+# Concatenate all dataframes in the list
+df = pd.concat(dfs)
+
+# Get the 7 developers with the most games
+top_developers = df['developer'].value_counts().head(7).index.tolist()
+
+# Declare result var
+result = {"type": "string", "value": f"The 7 developers with the most games made are: {', '.join(top_developers)}."}
+            ```
+            
+2024-04-30 19:58:40 [INFO] Executing Step 3: CachePopulation
+2024-04-30 19:58:40 [INFO] Executing Step 4: CodeExecution
+2024-04-30 19:58:40 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+top_developers = df['developer'].value_counts().head(7).index.tolist()
+result = {'type': 'string', 'value': f"The 7 developers with the most games made are: {', '.join(top_developers)}."}
+        ```
+2024-04-30 19:58:40 [INFO] Executing Step 5: ResultValidation
+2024-04-30 19:58:40 [INFO] Answer: {'type': 'string', 'value': 'The 7 developers with the most games made are: Unknown, Konami, Sega, Capcom, Namco, Square Enix, SNK Corporation.'}
+2024-04-30 19:58:40 [INFO] Executed in: 3.073072910308838s
+2024-04-30 19:58:40 [INFO] Executing Step 6: ResultParsing
+2024-04-30 19:59:04 [INFO] Question: Give me the 7 developers that have more games made of
+2024-04-30 19:59:04 [INFO] Running PandasAI with openai LLM...
+2024-04-30 19:59:04 [INFO] Prompt ID: 54f6096a-bbc4-468b-ab35-4596b0f95934
+2024-04-30 19:59:04 [INFO] Executing Step 0: CacheLookup
+2024-04-30 19:59:04 [INFO] Using cached response
+2024-04-30 19:59:04 [INFO] Executing Step 1: PromptGeneration
+2024-04-30 19:59:04 [INFO] Executing Step 2: CodeGenerator
+2024-04-30 19:59:04 [INFO] Executing Step 3: CachePopulation
+2024-04-30 19:59:04 [INFO] Executing Step 4: CodeExecution
+2024-04-30 19:59:04 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+top_developers = df['developer'].value_counts().head(7).index.tolist()
+result = {'type': 'string', 'value': f"The 7 developers with the most games made are: {', '.join(top_developers)}."}
+        ```
+2024-04-30 19:59:04 [INFO] Executing Step 5: ResultValidation
+2024-04-30 19:59:04 [INFO] Answer: {'type': 'string', 'value': 'The 7 developers with the most games made are: Unknown, Konami, Sega, Capcom, Namco, Square Enix, SNK Corporation.'}
+2024-04-30 19:59:04 [INFO] Executed in: 0.13145732879638672s
+2024-04-30 19:59:04 [INFO] Executing Step 6: ResultParsing
