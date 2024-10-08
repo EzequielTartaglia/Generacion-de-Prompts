@@ -14,4 +14,6 @@ Para poder instalar el entorno necesario para poder crear nuestros modelos de IA
   - `pip install openai==0.28` (mejorar el request)
   - `pip install jupyter notebook` (instalar tanto jupyter como notebook, para poder crear nuestro servidor local)
   - `pip install` "..." seguido de la dependencia necesaria para nuestro proyecto o modelo.
+  - `pip install -U google-generativeai` (instalar gemini ai studio)
 5. Una vez instaladas las dependencias, debemos ejecutar nuestro entorno jupyter notebook con el comando `jupyter notebook`
+
