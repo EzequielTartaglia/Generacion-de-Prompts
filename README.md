@@ -1,6 +1,7 @@
 ### Instalación
 
 - Miniconda: https://docs.conda.io/projects/miniconda/en/latest/index.html
+  - Descarga: https://www.anaconda.com/download/success
 
 ### Preparar el entorno
 
